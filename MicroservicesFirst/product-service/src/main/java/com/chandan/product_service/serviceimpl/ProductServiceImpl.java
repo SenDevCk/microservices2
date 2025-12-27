@@ -17,11 +17,12 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	ProductRepogetory productRepogetory;
 	@Override
-	public Product saveProduct(ProductRequestDto productDto) {
+	public ProductResponse saveProduct(ProductRequestDto productDto) {
 		// TODO Auto-generated method stub
 		Product product=Product.builder().name(productDto.getName())
 				.description(productDto.getDescription()).price(productDto.getPrice()).build();
-		return productRepogetory.save(product);
+		productRepogetory.save(product);
+		return ProductResponse.builder().name(product.getName()).description(product.getDescription()).build();
 	}
 
 	@Override
@@ -30,6 +31,10 @@ public class ProductServiceImpl implements ProductService{
 		return productRepogetory.findAll().stream().map(this::maptoProductResponse).toList();
 	}
     private ProductResponse maptoProductResponse(Product product) {
-    	return ProductResponse.builder().build();
+    	return ProductResponse.builder().id(product.getId())
+    			.name(product.getName())
+    			.description(product.getDescription())
+    			.price(product.getPrice())
+    			.build();
     }
 }

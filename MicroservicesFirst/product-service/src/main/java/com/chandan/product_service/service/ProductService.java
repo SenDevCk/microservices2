@@ -8,7 +8,7 @@ import com.chandan.product_service.models.Product;
 
 public interface ProductService {
 	
-	Product saveProduct(ProductRequestDto productDto);
+	ProductResponse saveProduct(ProductRequestDto productDto);
 	
 	List<ProductResponse> getAllProduct();
 
