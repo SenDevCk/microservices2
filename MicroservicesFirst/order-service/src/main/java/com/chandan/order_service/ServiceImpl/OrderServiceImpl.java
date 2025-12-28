@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService{
 		order.setOrderId(orderNumber);
 		List<OrderLineItems> items= orderRequest.getItems().stream().map(this::mapOrderLineItem).toList();
 		order.setItems(items);
-		return null;
+		return orderRepo.save(order);
 	}
     
 	 private OrderLineItems mapOrderLineItem(OrderLineItemsDto orderLineItemsDto) {
