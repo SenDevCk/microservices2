@@ -18,8 +18,9 @@ public class OrderController {
 	OrderService orderService;
     
 	@PostMapping("/createOrder")
-	public Order makeOrder(@RequestBody OrderRequest orderRequest) {
+	public String makeOrder(@RequestBody OrderRequest orderRequest) {
 		// TODO Auto-generated method stub
-       return orderService.saveOrder(orderRequest);
+       Order order= orderService.saveOrder(orderRequest);
+       return (order==null)?"Order not Placed.":"Order Placed Successfully";
 	}
 }
