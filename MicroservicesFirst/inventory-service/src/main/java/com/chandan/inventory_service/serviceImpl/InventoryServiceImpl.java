@@ -21,11 +21,11 @@ public class InventoryServiceImpl implements InventoryService{
 		// TODO Auto-generated method stub
 		List<InventoryDto> skuCodeDtos=new ArrayList<>();
 		List<String> data=inventoryRepo.findBySkuCodeIn(skuCodes).stream().map(item->item.getSkuCode()).toList();
-		for (String SkuCode:skuCodes) {
-			if(data.contains(skuCodes)) {
-				skuCodeDtos.add(InventoryDto.builder().skuCode(SkuCode).isAvailable(true).build());
+		for (String skuCode:skuCodes) {
+			if(data.contains(skuCode)) {
+				skuCodeDtos.add(InventoryDto.builder().skuCode(skuCode).isAvailable(true).build());
 			}else {
-				skuCodeDtos.add(InventoryDto.builder().skuCode(SkuCode).isAvailable(false).build());
+				skuCodeDtos.add(InventoryDto.builder().skuCode(skuCode).isAvailable(false).build());
 			}
 		}
 		return skuCodeDtos;
