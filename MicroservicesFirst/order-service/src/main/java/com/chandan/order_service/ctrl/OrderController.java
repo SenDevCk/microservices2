@@ -17,7 +17,7 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
     
-	@PostMapping("/createOrder")
+	@PostMapping("/create-order")
 	public String makeOrder(@RequestBody OrderRequest orderRequest) {
 		// TODO Auto-generated method stub
        Order order= orderService.saveOrder(orderRequest);

@@ -22,18 +22,26 @@ public class ProductCtrl {
 	@Autowired
 	ProductService productService;
 	
-	@PostMapping("/createProduct")
+	@PostMapping("/create-product")
 	@ResponseStatus(HttpStatus.CREATED)
-	ProductResponse careateProduct(@RequestBody final ProductRequestDto product) {
+	ProductResponse careateProduct(@RequestBody ProductRequestDto product) {
 		System.out.println(product.toString());
 		ProductResponse product2=  productService.saveProduct(product);
 		return product2;
 	}
 	
 	@GetMapping("/getAllProduct")
-	@ResponseStatus(HttpStatus.ACCEPTED)
+	@ResponseStatus(HttpStatus.OK)
 	List<ProductResponse> getAllProduct() {
 		List<ProductResponse> products=  productService.getAllProduct();
 		return products;
+	}
+	
+	@PostMapping("/create-product2")
+	@ResponseStatus(HttpStatus.OK)
+	ProductResponse careateProduct2(@RequestBody ProductRequestDto productRequestDto) {
+		//System.out.println(product.toString());
+		ProductResponse product2=  ProductResponse.builder().name(productRequestDto.getName()).build();
+		return product2;
 	}
 }

@@ -1,4 +1,4 @@
-package com.chandan.order_service.configurations;
+package com.chandan.product_service.configurations;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

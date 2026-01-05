@@ -5,12 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chandan.inventory_service.dtos.InventoryDto;
+import com.chandan.inventory_service.dtos.InventoryRequestDto;
+import com.chandan.inventory_service.models.Inventory;
 import com.chandan.inventory_service.services.InventoryService;
 
 @RestController
@@ -24,5 +28,12 @@ public class InventoryCtrl {
 	@ResponseStatus(HttpStatus.OK)
 	private List<InventoryDto> isAvailableInStock(@RequestParam List<String> skuCodes) {
 		return inventoryService.isAvailable(skuCodes);
+	}
+	
+	@PostMapping("/make-inventory")
+	@ResponseStatus(HttpStatus.OK)
+	private String saveInventory(@RequestBody InventoryRequestDto reqDto) {
+		Inventory inventory=inventoryService.save(reqDto);
+		return "Inventory Created Successfully";
 	}
 }

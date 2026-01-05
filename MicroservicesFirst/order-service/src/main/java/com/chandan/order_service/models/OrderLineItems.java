@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name = "t_order_line_item")
 public class OrderLineItems {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String skuCode;
 	private Double price;

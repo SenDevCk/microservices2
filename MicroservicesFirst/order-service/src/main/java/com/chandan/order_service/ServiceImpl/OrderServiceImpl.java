@@ -24,17 +24,19 @@ public class OrderServiceImpl implements OrderService {
 	OrderRepo orderRepo;
 
 	@Autowired
-	WebClient webClient;
+	private WebClient.Builder webClientBuilder;
 
 	@Override
 	public Order saveOrder(OrderRequest orderRequest) {
 		// TODO Auto-generated method stub
+		System.out.println("Coming in service."+orderRequest.toString());
 		List<String> skuCodeList = orderRequest.getItems().stream().map(OrderLineItemsDto::getSkuCode).toList();
-		InventoryDto[] data = webClient.get()
-				.uri("http://localhost:8082/inventory/isInStock",
+		InventoryDto[] data = webClientBuilder.build().get()
+				.uri("http://inventory-service/inventory/isInStock",
 						uriBuilder -> uriBuilder.queryParam("skuCodes", skuCodeList).build())
 				.retrieve().bodyToMono(InventoryDto[].class).block();
 		boolean isInStock = Arrays.stream(data).allMatch(InventoryDto::isAvailable);
+		System.out.println("isInStock "+isInStock);
 		if (isInStock) {
 			String orderNumber = UUID.randomUUID().toString();
 			Order order = new Order();

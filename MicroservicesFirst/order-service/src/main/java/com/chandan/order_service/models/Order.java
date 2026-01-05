@@ -23,9 +23,9 @@ import lombok.Setter;
 @Table(name = "t_order")
 public class Order {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
-   private String orderId;
-   @OneToMany(cascade = CascadeType.ALL)
-   private List<OrderLineItems> items;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String orderId;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<OrderLineItems> items;
 }

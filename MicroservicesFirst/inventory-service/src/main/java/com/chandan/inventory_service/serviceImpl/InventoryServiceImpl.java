@@ -4,33 +4,46 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chandan.inventory_service.dtos.InventoryDto;
+import com.chandan.inventory_service.dtos.InventoryRequestDto;
 import com.chandan.inventory_service.models.Inventory;
 import com.chandan.inventory_service.repogetory.InventoryRepo;
 import com.chandan.inventory_service.services.InventoryService;
 
 @Service
-public class InventoryServiceImpl implements InventoryService{
-	
+public class InventoryServiceImpl implements InventoryService {
+	@Autowired
 	InventoryRepo inventoryRepo;
 
 	@Override
 	public List<InventoryDto> isAvailable(List<String> skuCodes) {
 		// TODO Auto-generated method stub
-		List<InventoryDto> skuCodeDtos=new ArrayList<>();
-		List<String> data=inventoryRepo.findBySkuCodeIn(skuCodes).stream().map(item->item.getSkuCode()).toList();
-		for (String skuCode:skuCodes) {
-			if(data.contains(skuCode)) {
+		List<InventoryDto> skuCodeDtos = new ArrayList<>();
+		List<String> data = inventoryRepo.findInventoryBySkuCodes(skuCodes).stream().map(item -> item.getSkuCode())
+				.toList();
+		for (String skuCode : skuCodes) {
+			if (data.contains(skuCode)) {
 				skuCodeDtos.add(InventoryDto.builder().skuCode(skuCode).isAvailable(true).build());
-			}else {
+			} else {
 				skuCodeDtos.add(InventoryDto.builder().skuCode(skuCode).isAvailable(false).build());
 			}
 		}
 		return skuCodeDtos;
 	}
-   private InventoryDto mapToInventoryDto(Inventory inventory) {
-	   return InventoryDto.builder().skuCode(inventory.getSkuCode()).isAvailable(true).build();
-   }
+
+	private InventoryDto mapToInventoryDto(Inventory inventory) {
+		return InventoryDto.builder().skuCode(inventory.getSkuCode()).isAvailable(true).build();
+	}
+
+	@Override
+	public Inventory save(InventoryRequestDto reqDto) {
+		// TODO Auto-generated method stub
+		Inventory inventory = new Inventory();
+		inventory.setQty(reqDto.getQty());
+		inventory.setSkuCode(reqDto.getSkuCode());
+		return inventoryRepo.save(inventory);
+	}
 }

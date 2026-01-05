@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table
+@Table(name = "t_inventory")
 @Entity
 public class Inventory {
 	@Id
