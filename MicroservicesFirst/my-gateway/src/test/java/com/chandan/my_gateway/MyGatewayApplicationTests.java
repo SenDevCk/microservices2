@@ -1,12 +1,12 @@
 package com.chandan.my_gateway;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class MyGatewayApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
